@@ -24,7 +24,7 @@ mongoose
 const authRoutes = require('./routes/auth');
 const homepageRoutes = require('./routes/homepage');
 const aboutRoutes = require('./routes/about');
-const certificatesRouter = require('./routes/certificates');
+const certificatesRouter = require('./routes/Certificates');
 const contactRoutes = require('./routes/contact');
 const projectRoutes = require('./routes/project');
 const internshipRoutes = require('./routes/internships');
