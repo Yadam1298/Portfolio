@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+.neon-footer {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 40px 20px;
+  text-align: center;
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  border-top: 1px solid #ffffff22;
+  box-shadow: 0 -2px 20px #ffffff44, inset 0 -2px 15px #ffffff33;
+  margin-top: 60px;
+}
+
+.footer-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.footer-title {
+  font-size: 1.8rem;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 10px #ffffffaa;
+}
+
+.footer-tagline {
+  margin: 10px 0 25px;
+  font-size: 1.1rem;
+  color: #dddddd;
+  text-shadow: 0 0 6px #ffffff66;
+}
+
+.footer-icons a {
+  color: #ffffff;
+  font-size: 1.6rem;
+  margin: 0 15px;
+  text-shadow: 0 0 8px #ffffffcc;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.footer-icons a:hover {
+  color: #000;
+  background: #fff;
+  padding: 6px;
+  border-radius: 50%;
+  transform: scale(1.2);
+  box-shadow: 0 0 15px #ffffffaa, inset 0 0 10px #ffffffcc;
+}
+
+.footer-copy {
+  margin-top: 25px;
+  font-size: 0.95rem;
+  color: #cccccc;
+  text-shadow: 0 0 4px #ffffff88;
+}
+
+@media (max-width: 600px) {
+  .footer-title {
+    font-size: 1.4rem;
+  }
+
+  .footer-tagline {
+    font-size: 1rem;
+  }
+
+  .footer-icons a {
+    font-size: 1.4rem;
+    margin: 0 10px;
+  }
+}

@@ -1,0 +1,379 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.cert-section {
+  position: relative;
+  min-height: 100vh;
+  background: #000000;
+  font-family: 'VT323', monospace;
+  color: #ffffff;
+  padding-top: 60px;
+}
+
+.cert-title {
+  display: flex;
+  justify-content: center;
+  font-size: 3rem;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 1rem;
+  letter-spacing: 3px;
+  font-weight: 700;
+}
+
+.cert-grid {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.8rem 4rem;
+  padding: 2rem 1rem;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .cert-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .cert-title {
+    font-size: 2rem;
+  }
+
+  .cert-card-title {
+    font-size: 1.4rem;
+  }
+
+  .cert-org,
+  .cert-date {
+    font-size: 1rem;
+  }
+
+  .cert-link {
+    font-size: 1rem;
+  }
+}
+
+.cert-card {
+  background: #121212;
+  border-radius: 16px;
+  padding: 2rem 1.8rem;
+  box-shadow: 0 0 6px #ffffff55;
+  color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #ffffff44;
+  position: relative;
+  user-select: none;
+}
+
+.cert-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 12px #ffffff55;
+}
+
+.cert-logo {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 1.3rem;
+  filter: drop-shadow(0 0 3px #ffffffaa);
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #ffffff44 0%, transparent 70%);
+  padding: 6px;
+}
+
+.cert-card-title {
+  font-size: 1.6rem;
+  margin: 0.7rem 0;
+  text-align: center;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.cert-org,
+.cert-date {
+  font-size: 1.1rem;
+  color: #eeeeee;
+  margin: 0.3rem 0;
+  font-weight: 600;
+  text-align: center;
+}
+
+.cert-link {
+  margin-top: 1rem;
+  padding: 0.5rem 1.2rem;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  background: transparent;
+  font-weight: 700;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.cert-link:hover {
+  background: #ffffff;
+  color: #000;
+  box-shadow: 0 0 14px #ffffff77;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+/* Modal */
+.cert-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+}
+
+.cert-modal-content {
+  position: relative;
+  width: 90%;
+  height: 80%;
+  background-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 15px #ffffff99, inset 0 0 10px #ffffff22;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 3%;
+  color: #ffffff;
+}
+
+.cert-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.cert-modal-close-btn {
+  align-self: flex-end;
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 900;
+  padding: 5px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.cert-modal-close-btn:hover {
+  background-color: #000000;
+  border-color: #ff0000;
+  color: #ff0000;
+}
+
+.cert-modal-pdf {
+  width: 100%;
+  height: 70vh;
+  border-radius: 12px;
+  border: 1.5px solid #000;
+  margin: 1rem 0;
+  background: #000000;
+}
+
+.cert-modal-title {
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
+  color: #ffffff;
+  text-align: center;
+}
+
+.cert-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #dddddd;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .cert-modal-title {
+    font-size: 1rem;
+  }
+
+  .cert-modal-footer {
+    flex-direction: column;
+    gap: 8px;
+    font-size: 1rem;
+  }
+}
+
+/* Your original CSS remains unchanged above */
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .cert-title {
+    font-size: 2.6rem;
+  }
+
+  .cert-card-title {
+    font-size: 1.5rem;
+  }
+
+  .cert-org,
+  .cert-date {
+    font-size: 1.05rem;
+  }
+
+  .cert-link {
+    font-size: 1rem;
+  }
+
+  .cert-modal-title {
+    font-size: 1.6rem;
+  }
+
+  .cert-modal-footer {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .cert-title {
+    font-size: 2.3rem;
+  }
+
+  .cert-card-title {
+    font-size: 1.4rem;
+  }
+
+  .cert-org,
+  .cert-date {
+    font-size: 1rem;
+  }
+
+  .cert-link {
+    font-size: 0.95rem;
+  }
+
+  .cert-modal-title {
+    font-size: 1.5rem;
+  }
+
+  .cert-modal-close-btn {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .cert-title {
+    font-size: 2rem;
+  }
+
+  .cert-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .cert-card-title {
+    font-size: 1.3rem;
+  }
+
+  .cert-org,
+  .cert-date {
+    font-size: 0.95rem;
+  }
+
+  .cert-link {
+    font-size: 0.9rem;
+  }
+
+  .cert-modal-title {
+    font-size: 1.4rem;
+  }
+
+  .cert-modal-close-btn {
+    font-size: 1.1rem;
+  }
+
+  .cert-modal-content {
+    height: 75%;
+    padding: 12px 2%;
+  }
+
+  .cert-modal-pdf {
+    height: 60vh;
+  }
+}
+
+@media (max-width: 576px) {
+  .cert-title {
+    font-size: 1.7rem;
+  }
+
+  .cert-card-title {
+    font-size: 1.2rem;
+  }
+
+  .cert-org,
+  .cert-date {
+    font-size: 0.9rem;
+  }
+
+  .cert-link {
+    font-size: 0.85rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .cert-modal-title {
+    font-size: 1.2rem;
+  }
+
+  .cert-modal-footer {
+    flex-direction: column;
+    font-size: 0.95rem;
+  }
+
+  .cert-modal-close-btn {
+    font-size: 1rem;
+    padding: 4px 8px;
+  }
+}
+
+@media (max-width: 400px) {
+  .cert-title {
+    font-size: 1.5rem;
+  }
+
+  .cert-card-title {
+    font-size: 1.1rem;
+  }
+
+  .cert-org,
+  .cert-date {
+    font-size: 0.85rem;
+  }
+
+  .cert-link {
+    font-size: 0.8rem;
+  }
+
+  .cert-modal-title {
+    font-size: 1rem;
+  }
+
+  .cert-modal-pdf {
+    height: 55vh;
+  }
+}

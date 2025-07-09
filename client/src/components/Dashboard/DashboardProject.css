@@ -1,0 +1,101 @@
+.dp-container {
+  padding: 2rem;
+  color: #fff;
+  background-color: #000;
+}
+
+.dp-heading {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px #fff;
+}
+
+.dp-project-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #ffffff33;
+  box-shadow: 0 0 12px #ffffff22;
+  border-radius: 12px;
+  padding: 1.2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dp-input,
+.dp-textarea,
+.dp-tech-input {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  padding: 0.6rem;
+}
+
+.dp-textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.dp-tech-list {
+  margin-top: 1rem;
+}
+
+.dp-label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.dp-tech-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 0.5rem;
+  align-items: center;
+}
+
+.dp-btn {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.dp-add-btn:hover {
+  background: #0f0;
+  color: #000;
+  border-color: #0f0;
+}
+
+.dp-delete-btn:hover {
+  background: #f00;
+  color: #000;
+  border-color: #f00;
+}
+
+.dp-add-project-btn {
+  margin-top: 1.5rem;
+  background: #222;
+}
+
+.dp-add-project-btn:hover {
+  background: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.dp-save-btn {
+  margin-top: 1rem;
+  background: #111;
+  border-color: #0ff;
+}
+
+.dp-save-btn:hover {
+  background: #0ff;
+  color: #000;
+  border-color: #0ff;
+}

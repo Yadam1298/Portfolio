@@ -1,0 +1,257 @@
+.public-testimonial-section {
+  background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+  padding: 5rem 10%;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+}
+
+.public-testimonial-title {
+  text-align: center;
+  font-size: 2.8rem;
+  margin-bottom: 4rem;
+  color: #fff;
+  text-shadow: 0 0 12px #ffffffaa;
+}
+
+.public-testimonial-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  justify-content: center;
+}
+
+.public-testimonial-no-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #bbb;
+  margin-top: 2rem;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.public-testimonial-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #ffffff22;
+  backdrop-filter: blur(8px);
+  border-radius: 14px;
+  padding: 2rem;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.public-testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 30px #ffffff24;
+}
+
+.public-testimonial-profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.public-testimonial-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin-right: 1rem;
+  overflow: hidden;
+}
+
+.public-testimonial-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.public-testimonial-meta {
+  text-align: left;
+}
+
+.public-testimonial-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffffdd;
+}
+
+.public-testimonial-position {
+  font-size: 0.9rem;
+  color: #bbbbbb;
+  font-style: italic;
+}
+
+.public-testimonial-message {
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+  color: #ffffffcc;
+  text-shadow: 0 0 6px #ffffff22;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.public-testimonial-form {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.public-testimonial-input,
+.public-testimonial-textarea {
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background-color: #1c1c1c;
+  color: #fff;
+}
+
+.public-testimonial-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.public-testimonial-button {
+  background-color: #ffffffaa;
+  color: #000;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.public-testimonial-button:hover {
+  background-color: #ffffff;
+}
+
+.public-testimonial-submit-msg {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #fff;
+}
+
+/* Your original CSS remains unchanged above */
+
+/* Responsive adjustments for different device sizes */
+@media (max-width: 1200px) {
+  .public-testimonial-title {
+    font-size: 2.4rem;
+  }
+
+  .public-testimonial-message {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .public-testimonial-title {
+    font-size: 2.2rem;
+  }
+
+  .public-testimonial-message {
+    font-size: 0.95rem;
+  }
+
+  .public-testimonial-card {
+    padding: 1.6rem;
+  }
+
+  .public-testimonial-input,
+  .public-testimonial-textarea {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .public-testimonial-title {
+    font-size: 2rem;
+  }
+
+  .public-testimonial-message {
+    font-size: 0.9rem;
+  }
+
+  .public-testimonial-card {
+    padding: 1.4rem;
+  }
+
+  .public-testimonial-avatar {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+
+  .public-testimonial-name {
+    font-size: 1rem;
+  }
+
+  .public-testimonial-position {
+    font-size: 0.85rem;
+  }
+
+  .public-testimonial-form {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .public-testimonial-title {
+    font-size: 1.8rem;
+  }
+
+  .public-testimonial-message {
+    font-size: 0.85rem;
+  }
+
+  .public-testimonial-card {
+    padding: 1.2rem;
+  }
+
+  .public-testimonial-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .public-testimonial-input,
+  .public-testimonial-textarea {
+    font-size: 0.9rem;
+  }
+
+  .public-testimonial-button {
+    padding: 10px 14px;
+    font-size: 0.95rem;
+  }
+
+  .public-testimonial-name {
+    font-size: 0.95rem;
+  }
+
+  .public-testimonial-position {
+    font-size: 0.8rem;
+  }
+}

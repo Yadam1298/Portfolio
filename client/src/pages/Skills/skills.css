@@ -1,0 +1,237 @@
+.skills-page {
+  background: #000;
+  color: #fff;
+  padding: 4rem 6%;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
+
+.skills-title {
+  font-size: 2.8rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  text-shadow: 0 0 12px #ffffff;
+}
+
+.skill-category {
+  margin-bottom: 3rem;
+}
+
+.category-title {
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+  color: #fff;
+  text-shadow: 0 0 10px #ffffffaa;
+  border-left: 4px solid #ffffff88;
+  padding-left: 12px;
+}
+
+.skill-bar-container {
+  margin-bottom: 5rem;
+  margin-top: rem;
+}
+
+.skill-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.skill-name {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #ffffffee;
+}
+
+.skill-percent {
+  font-size: 1rem;
+  color: #ffffff66;
+  transition: color 0.3s ease;
+}
+
+.skill-note {
+  flex-basis: 100%;
+  font-size: 0.9rem;
+  color: #ffffff88;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* Progress Bar Track */
+.progress-track {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 12px #ffffff22;
+}
+
+/* Base progress bar (always visible) */
+/* Base progress bar (always visible and animates on load) */
+.progress-base {
+  height: 100%;
+  width: var(--percent);
+  background: #555;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  animation: baseSlideIn 1.2s ease-in-out forwards;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+@keyframes baseSlideIn {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Hover bar (animated white overlay) */
+.progress-hover {
+  height: 100%;
+  width: var(--percent);
+  background: linear-gradient(90deg, #ffffffcc, #ffffff);
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s ease-in-out;
+  pointer-events: none;
+}
+
+/* Animate hover bar */
+.skill-bar-container:hover .progress-hover {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.skill-bar-container:not(:hover) .progress-hover {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.skill-bar-container:hover .skill-percent {
+  color: #ffffffdd;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .skill-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .skill-percent {
+    align-self: flex-end;
+  }
+}
+
+/* Your original CSS remains above */
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .skills-title {
+    font-size: 2.5rem;
+  }
+
+  .category-title {
+    font-size: 1.6rem;
+  }
+
+  .skill-name {
+    font-size: 1rem;
+  }
+
+  .skill-percent {
+    font-size: 0.95rem;
+  }
+
+  .skill-note {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .skills-title {
+    font-size: 2.3rem;
+  }
+
+  .category-title {
+    font-size: 1.5rem;
+  }
+
+  .skill-name {
+    font-size: 0.95rem;
+  }
+
+  .skill-percent {
+    font-size: 0.9rem;
+  }
+
+  .skill-note {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .skills-page {
+    padding: 3rem 4%;
+  }
+
+  .skills-title {
+    font-size: 2rem;
+  }
+
+  .category-title {
+    font-size: 1.4rem;
+  }
+
+  .skill-name {
+    font-size: 0.95rem;
+  }
+
+  .skill-percent {
+    font-size: 0.85rem;
+  }
+
+  .skill-note {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .skills-title {
+    font-size: 1.8rem;
+  }
+
+  .category-title {
+    font-size: 1.2rem;
+  }
+
+  .skill-name {
+    font-size: 0.9rem;
+  }
+
+  .skill-percent {
+    font-size: 0.8rem;
+  }
+
+  .skill-note {
+    font-size: 0.7rem;
+  }
+
+  .skills-page {
+    padding: 2.5rem 5%;
+  }
+}

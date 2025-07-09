@@ -1,0 +1,374 @@
+.project-showcase {
+  padding: 3rem 5%;
+  background: #000;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.project-showcase h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 10px #fff;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+}
+
+/* Card Styles */
+.hover-card {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 20px #ffffff22;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+/* Add this to enable pointer events only on visible side */
+.hover-card:hover .card-back {
+  pointer-events: auto;
+}
+
+.hover-card:not(:hover) .card-front {
+  pointer-events: auto;
+}
+
+.card-front {
+  z-index: 2;
+  opacity: 1;
+  transform: translateY(0%);
+}
+
+.card-back {
+  z-index: 3;
+  opacity: 0;
+  transform: translateY(80%);
+}
+
+/* Hover Effect */
+.hover-card:hover .card-front {
+  opacity: 0;
+  transform: translateY(-80%);
+}
+
+.hover-card:hover .card-back {
+  opacity: 1;
+  transform: translateY(0%);
+}
+
+.card-front h3,
+.card-back h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 8px #ffffffcc;
+}
+
+.card-front p,
+.card-back p {
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.tags {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  align-items: center;
+}
+
+.tag-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.tag-row span {
+  background-color: #000;
+  color: #fff;
+  font-size: 0.85rem;
+  padding: 5px 20px;
+  border-radius: 20px;
+  border: 1px solid #ffffff44;
+  box-shadow: 0 0 6px #ffffff33;
+  text-transform: capitalize;
+}
+
+/* Buttons */
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 80%;
+}
+
+.btn-glow {
+  background: transparent;
+  color: white;
+  border: 1.5px solid white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 0 10px #ffffff44;
+  width: 100%;
+  text-decoration: none;
+  margin-top: 20px;
+}
+
+.btn-glow:hover {
+  background: white;
+  color: black;
+  box-shadow: 0 0 20px #ffffff;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  position: relative;
+  width: 85%;
+  max-width: 1000px;
+  height: 80%;
+  background-color: rgba(255, 255, 255, 0);
+  box-shadow: 0 0 30px #ffffff33, inset 0 0 20px #ffffff66;
+  backdrop-filter: blur(100%);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 3%;
+  color: #fff;
+  overflow: hidden;
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  text-align: center;
+  text-shadow: 0 0 10px #fff;
+  margin-bottom: 1rem;
+}
+
+.modal-close-btn {
+  align-self: flex-end;
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding: 5px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  box-shadow: 0 0 8px #aaa, inset 0 0 10px #ccc;
+  transition: all 0.3s ease;
+}
+
+.modal-close-btn:hover {
+  background-color: black;
+  border-color: #ff0000;
+  color: #ff0000;
+  box-shadow: 0 0 20px #000, inset 0 0 15px #999;
+}
+
+.model-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.modal-pdf {
+  width: 100%;
+  height: 70vh;
+  border-radius: 12px;
+  background: #000;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 15px #ffffff;
+  user-select: none;
+  object-fit: contain;
+}
+
+.modal-video {
+  width: 100%;
+  height: 85%;
+  border-radius: 12px;
+  background: #000;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 15px #ffffff;
+  object-fit: contain;
+}
+
+/* Your original CSS remains unchanged above */
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .project-showcase h1 {
+    font-size: 2.3rem;
+  }
+
+  .card-front h3,
+  .card-back h3 {
+    font-size: 1.2rem;
+  }
+
+  .card-front p,
+  .card-back p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .project-showcase h1 {
+    font-size: 2.1rem;
+  }
+
+  .card-front h3,
+  .card-back h3 {
+    font-size: 1.1rem;
+  }
+
+  .card-front p,
+  .card-back p {
+    font-size: 0.85rem;
+  }
+
+  .btn-glow {
+    font-size: 0.9rem;
+    padding: 7px 10px;
+  }
+
+  .modal-title {
+    font-size: 1.6rem;
+  }
+
+  .modal-close-btn {
+    font-size: 1.2rem;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-showcase h1 {
+    font-size: 1.9rem;
+  }
+
+  .card-front h3,
+  .card-back h3 {
+    font-size: 1rem;
+  }
+
+  .card-front p,
+  .card-back p {
+    font-size: 0.8rem;
+  }
+
+  .tag-row span {
+    font-size: 0.75rem;
+    padding: 5px 14px;
+  }
+
+  .btn-glow {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+
+  .modal-content {
+    width: 90%;
+    height: 75%;
+    padding: 12px 2%;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+  }
+
+  .modal-close-btn {
+    font-size: 1.1rem;
+    padding: 4px 8px;
+  }
+}
+
+@media (max-width: 576px) {
+  .project-showcase {
+    padding: 2rem 4%;
+  }
+
+  .project-showcase h1 {
+    font-size: 1.7rem;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hover-card {
+    height: 280px;
+  }
+
+  .card-front h3,
+  .card-back h3 {
+    font-size: 0.95rem;
+  }
+
+  .card-front p,
+  .card-back p {
+    font-size: 0.75rem;
+  }
+
+  .tag-row span {
+    font-size: 0.7rem;
+    padding: 5px 12px;
+  }
+
+  .btn-glow {
+    font-size: 0.8rem;
+  }
+
+  .modal-title {
+    font-size: 1rem;
+  }
+
+  .modal-close-btn {
+    font-size: 0.8rem;
+  }
+
+  .modal-pdf,
+  .modal-video {
+    height: 60vh;
+  }
+}

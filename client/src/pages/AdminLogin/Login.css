@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+body {
+  background-color: #0a0a0a;
+  font-family: 'Orbitron', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Container */
+.login-hacker-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #000 0%, #0a0a0a 100%);
+  position: relative;
+}
+
+/* Form Box */
+.cyber-glow-frame {
+  position: relative;
+  width: 420px;
+  padding: 40px;
+  border-radius: 16px;
+  background: rgba(15, 15, 15, 0.8);
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 20px #ffffff, inset 0 0 15px rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  animation: fadeInUp 1s ease;
+  z-index: 2;
+}
+
+/* Title */
+.login-title {
+  color: #ffffff;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 30px;
+  text-shadow: 0 0 5px #ffffff, 0 0 20px #ffffff;
+  animation: flicker 3s infinite;
+}
+
+/* Encrypting Text */
+.encrypting-text {
+  color: #ffffff;
+  text-align: center;
+  font-size: 18px;
+  animation: typing 2s steps(20, end), blink 1s step-end infinite;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+/* Form Elements */
+.form-group {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 10px 10px 0;
+  background: transparent;
+  border: 0 !important;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.6) !important;
+  color: #ffffff;
+  font-size: 15px;
+  outline: none;
+  transition: 0.4s;
+  caret-color: #ffffff;
+  box-shadow: none;
+  appearance: none;
+}
+
+.form-group input:focus,
+.form-group input:valid {
+  border-bottom: 2px solid #ffffff;
+}
+
+.form-group label {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  color: #cccccc;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+.form-group input:focus ~ label,
+.form-group input:valid ~ label,
+.form-group input:disabled:not(:placeholder-shown) ~ label,
+.form-group input:disabled:valid ~ label {
+  top: -14px;
+  font-size: 12px;
+  color: #ffffff;
+}
+
+.highlight {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: #ffffff;
+  transition: 0.3s;
+}
+
+.form-group input:focus ~ .highlight {
+  width: 100%;
+}
+
+/* Button */
+.glow-button {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ffffff;
+  background: transparent;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #ffffff;
+  transition: 0.3s ease-in-out;
+  margin-top: 30px;
+  border-radius: 10px;
+}
+
+.glow-button:hover {
+  background: #ffffff;
+  color: #000;
+  box-shadow: 0 0 25px #ffffff;
+}
+
+/* Notification */
+.notification-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.notification-box {
+  background: #111;
+  border: 2px solid #ffffff;
+  padding: 40px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #ffffff;
+  color: #ffffff;
+}
+
+.notification-box h2 {
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+.notification-box p {
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.notification-box button {
+  padding: 10px 25px;
+  background: #ffffff;
+  border: none;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+
+.notification-box button:hover {
+  background: #dddddd;
+}
+
+/* Animations */
+@keyframes flicker {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    opacity: 1;
+  }
+
+  20%,
+  24%,
+  55% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Autofill Fix */
+input:-webkit-autofill {
+  box-shadow: 0 0 0 30px #0a0a0a inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.glow-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: transparent;
+  box-shadow: none;
+}
+
+.forgot-password-link {
+  text-align: right;
+  margin-top: 10px;
+}
+.forgot-password-link a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.forgot-password-link a:hover {
+  text-decoration: underline;
+  color: #ff0000;
+}

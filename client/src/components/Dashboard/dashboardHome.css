@@ -1,0 +1,23 @@
+.dashboard-home {
+  padding: 20px;
+  max-width: 700px;
+  margin: auto;
+}
+
+.dashboard-home form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dashboard-home input,
+.dashboard-home textarea {
+  padding: 8px;
+  font-size: 16px;
+}
+
+.dashboard-home .message {
+  margin-top: 10px;
+  font-weight: bold;
+  color: limegreen;
+}
