@@ -17,7 +17,7 @@ const DashboardProjects = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/projects')
+      .get('https://portfolio-server-k361.onrender.com/api/projects')
       .then((res) => {
         setProjects(res.data.length ? res.data : [getEmptyProject()]);
         setLoading(false);
@@ -57,7 +57,7 @@ const DashboardProjects = () => {
   };
 
   const deleteProject = async (id, index) => {
-    if (id) await axios.delete(`http://localhost:5000/api/projects/${id}`);
+    if (id) await axios.delete(`https://portfolio-server-k361.onrender.com/api/projects/${id}`);
     const updated = [...projects];
     updated.splice(index, 1);
     setProjects(updated);
@@ -67,15 +67,15 @@ const DashboardProjects = () => {
     for (let project of projects) {
       if (project._id) {
         await axios.put(
-          `http://localhost:5000/api/projects/${project._id}`,
+          `https://portfolio-server-k361.onrender.com/api/projects/${project._id}`,
           project
         );
       } else {
-        await axios.post('http://localhost:5000/api/projects', project);
+        await axios.post('https://portfolio-server-k361.onrender.com/api/projects', project);
       }
     }
     alert('✅ Projects saved!');
-    const res = await axios.get('http://localhost:5000/api/projects');
+    const res = await axios.get('https://portfolio-server-k361.onrender.com/api/projects');
     setProjects(res.data);
   };
 

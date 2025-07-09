@@ -17,7 +17,9 @@ const DashboardContact = () => {
 
   const fetchContactData = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/contact');
+      const res = await fetch(
+        'https://portfolio-server-k361.onrender.com/api/contact'
+      );
       const data = await res.json();
 
       if (data && data.title) {
@@ -60,11 +62,14 @@ const DashboardContact = () => {
 
   const saveContact = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/contact/update', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(contactData),
-      });
+      const res = await fetch(
+        'https://portfolio-server-k361.onrender.com/api/contact/update',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(contactData),
+        }
+      );
 
       if (res.ok) {
         alert('Contact info saved!');
@@ -81,14 +86,17 @@ const DashboardContact = () => {
   const handleDeleteMessage = async (index) => {
     const target = messages[index];
     try {
-      await fetch('http://localhost:5000/api/contact/delete-message', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: target.email,
-          message: target.message,
-        }),
-      });
+      await fetch(
+        'https://portfolio-server-k361.onrender.com/api/contact/delete-message',
+        {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: target.email,
+            message: target.message,
+          }),
+        }
+      );
     } catch (err) {
       console.error('Failed to delete message:', err);
     }

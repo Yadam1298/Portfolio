@@ -12,7 +12,7 @@ const ForgotPassword = () => {
 
     try {
       const res = await axios.get(
-        'http://localhost:5000/api/auth/reset-password'
+        'https://portfolio-server-k361.onrender.com/api/auth/reset-password'
       );
       setMessage(res.data.message);
     } catch (err) {

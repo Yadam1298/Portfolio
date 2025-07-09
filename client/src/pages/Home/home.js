@@ -22,7 +22,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/homepage')
+      .get('https://portfolio-server-k361.onrender.com/api/homepage')
       .then((res) => setData(res.data))
       .catch((err) => console.error('Error fetching home data', err));
   }, []);

@@ -23,11 +23,14 @@ const Login = () => {
     setShowEncrypting(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
+      const response = await fetch(
+        'https://portfolio-server-k361.onrender.com/api/auth/login',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password }),
+        }
+      );
 
       if (response.ok) {
         setShowNotification(true);
@@ -55,7 +58,7 @@ const Login = () => {
     if (otp.length === 6) {
       try {
         const response = await fetch(
-          'http://localhost:5000/api/auth/verify-otp',
+          'https://portfolio-server-k361.onrender.com/api/auth/verify-otp',
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

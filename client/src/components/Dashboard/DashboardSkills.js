@@ -19,7 +19,7 @@ const DashboardSkills = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/skills')
+      .get('https://portfolio-server-k361.onrender.com/api/skills')
       .then((res) => {
         if (res.data.length > 0) {
           setSkillsData(res.data);
@@ -71,7 +71,10 @@ const DashboardSkills = () => {
 
   const saveToDB = async () => {
     try {
-      await axios.post('http://localhost:5000/api/skills', skillsData);
+      await axios.post(
+        'https://portfolio-server-k361.onrender.com/api/skills',
+        skillsData
+      );
       alert('✅ Skills saved successfully!');
     } catch (err) {
       console.error('Save error:', err);

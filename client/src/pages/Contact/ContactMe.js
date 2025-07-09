@@ -12,7 +12,9 @@ const ContactMe = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/contact');
+        const res = await axios.get(
+          'https://portfolio-server-k361.onrender.com/api/contact'
+        );
         setContent(res.data);
       } catch (err) {
         console.error('Error fetching contact content:', err);
@@ -35,7 +37,7 @@ const ContactMe = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        'http://localhost:5000/api/contact/submit-message',
+        'https://portfolio-server-k361.onrender.com/api/contact/submit-message',
         form
       );
       if (res.data.success) {

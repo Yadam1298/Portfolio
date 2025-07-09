@@ -7,7 +7,7 @@ const Certificates = () => {
   const [selectedCert, setSelectedCert] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/certificates')
+    fetch('https://portfolio-server-k361.onrender.com/api/certificates')
       .then((res) => res.json())
       .then((data) => {
         setCertificates(data);

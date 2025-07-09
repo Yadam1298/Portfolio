@@ -16,7 +16,7 @@ const DashboardInternships = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/internships')
+      .get('https://portfolio-server-k361.onrender.com/api/internships')
       .then((res) => {
         setInternships(res.data.length ? res.data : [getEmptyIntern()]);
         setLoading(false);
@@ -38,7 +38,10 @@ const DashboardInternships = () => {
   };
 
   const deleteInternship = async (id, index) => {
-    if (id) await axios.delete(`http://localhost:5000/api/internships/${id}`);
+    if (id)
+      await axios.delete(
+        `https://portfolio-server-k361.onrender.com/api/internships/${id}`
+      );
     const updated = [...internships];
     updated.splice(index, 1);
     setInternships(updated);
@@ -48,16 +51,21 @@ const DashboardInternships = () => {
     for (let intern of internships) {
       if (intern._id) {
         await axios.put(
-          `http://localhost:5000/api/internships/${intern._id}`,
+          `https://portfolio-server-k361.onrender.com/api/internships/${intern._id}`,
           intern
         );
       } else {
-        await axios.post('http://localhost:5000/api/internships', intern);
+        await axios.post(
+          'https://portfolio-server-k361.onrender.com/api/internships',
+          intern
+        );
       }
     }
 
     alert('✅ Internships saved!');
-    const res = await axios.get('http://localhost:5000/api/internships');
+    const res = await axios.get(
+      'https://portfolio-server-k361.onrender.com/api/internships'
+    );
     setInternships(res.data);
   };
 

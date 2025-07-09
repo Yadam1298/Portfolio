@@ -16,8 +16,10 @@ const ProjectShowcase = () => {
     const fetchData = async () => {
       try {
         const [projRes, internRes] = await Promise.all([
-          axios.get('http://localhost:5000/api/projects'),
-          axios.get('http://localhost:5000/api/internships'),
+          axios.get('https://portfolio-server-k361.onrender.com/api/projects'),
+          axios.get(
+            'https://portfolio-server-k361.onrender.com/api/internships'
+          ),
         ]);
         setProjects(projRes.data);
         setInternships(internRes.data);

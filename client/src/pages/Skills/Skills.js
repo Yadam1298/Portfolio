@@ -8,7 +8,7 @@ const Skills = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/skills')
+      .get('https://portfolio-server-k361.onrender.com/api/skills')
       .then((res) => {
         setSkillsData(res.data);
         setLoading(false);
