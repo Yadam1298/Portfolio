@@ -12,7 +12,7 @@ const Testimonials = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/testimonials')
+      .get('https://portfolio-server-k361.onrender.com/api/testimonials')
       .then((res) => setTestimonials(res.data))
       .catch((err) => console.error('Error loading testimonials:', err));
   }, []);
