@@ -15,11 +15,11 @@ const Layout = () => {
 
     const fadeTimer = setTimeout(() => {
       setTriggerFade(true); // start fade-out
-    }, 3000); // after animation plays
+    }, 3000);
 
     const removeTimer = setTimeout(() => {
-      setShowAnimation(false); // now unmount after fade
-    }, 6000); // total: draw + fade duration
+      setShowAnimation(false); // remove completely
+    }, 6000);
 
     return () => {
       clearTimeout(fadeTimer);
@@ -29,9 +29,17 @@ const Layout = () => {
 
   return (
     <>
+      {/* Animation OVERLAY */}
+      {showAnimation && (
+        <div className="global-animation-overlay">
+          <Animation fadeOut={triggerFade} />
+        </div>
+      )}
+
+      {/* Site Content */}
       <Nav />
       <main style={{ padding: '20px' }}>
-        {showAnimation ? <Animation fadeOut={triggerFade} /> : <Outlet />}
+        <Outlet />
       </main>
       <Footer />
     </>

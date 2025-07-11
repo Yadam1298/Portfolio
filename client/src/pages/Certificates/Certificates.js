@@ -7,6 +7,10 @@ const Certificates = () => {
   const [selectedCert, setSelectedCert] = useState(null);
 
   useEffect(() => {
+    document.title = "Certificates | Yadam's Portfolio";
+  }, []);
+
+  useEffect(() => {
     fetch('https://portfolio-server-k361.onrender.com/api/certificates')
       .then((res) => res.json())
       .then((data) => {

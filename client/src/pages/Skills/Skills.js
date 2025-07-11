@@ -7,6 +7,10 @@ const Skills = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = "Skills | Yadam's Portfolio";
+  }, []);
+
+  useEffect(() => {
     axios
       .get('https://portfolio-server-k361.onrender.com/api/skills')
       .then((res) => {

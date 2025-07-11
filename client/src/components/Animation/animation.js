@@ -58,13 +58,17 @@ const Animation = ({ fadeOut }) => {
       <svg
         viewBox="0 0 800 200"
         preserveAspectRatio="xMidYMid meet"
-        style={{ width: '100%', maxWidth: '800px', height: 'auto' }}
+        style={{
+          width: '100%',
+          height: '100%',
+        }}
       >
         <text
-          x="50%"
+          x="48%"
           y="50%"
           textAnchor="middle"
-          dominantBaseline="middle"
+          dominantBaseline="central"
+          alignmentBaseline="central"
           className={`signature-text ${fadeOut ? 'fade-out' : ''}`}
         >
           Yadam
@@ -76,6 +80,9 @@ const Animation = ({ fadeOut }) => {
 
 const styles = {
   wrapper: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
     width: '100vw',
     height: '100vh',
     background: 'radial-gradient(circle at center, #0d0d0d 0%, #000000 100%)',
@@ -83,6 +90,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
+    zIndex: 9999,
   },
 };
 

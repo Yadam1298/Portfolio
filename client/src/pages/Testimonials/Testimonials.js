@@ -11,6 +11,10 @@ const Testimonials = () => {
   const [submitMessage, setSubmitMessage] = useState('');
 
   useEffect(() => {
+    document.title = "Testimonials | Yadam's Portfolio";
+  }, []);
+
+  useEffect(() => {
     axios
       .get('https://portfolio-server-k361.onrender.com/api/testimonials')
       .then((res) => setTestimonials(res.data))

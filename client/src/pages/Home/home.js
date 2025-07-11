@@ -11,6 +11,10 @@ const Home = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
+    document.title = "Home | Yadam's Portfolio";
+  }, []);
+
+  useEffect(() => {
     localStorage.clear();
     sessionStorage.clear();
     document.cookie.split(';').forEach((c) => {

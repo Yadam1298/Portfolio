@@ -13,6 +13,10 @@ const ProjectShowcase = () => {
   });
 
   useEffect(() => {
+    document.title = "Projects | Yadam's Portfolio";
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const [projRes, internRes] = await Promise.all([

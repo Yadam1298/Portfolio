@@ -10,6 +10,10 @@ const ContactMe = () => {
   const [status, setStatus] = useState('');
 
   useEffect(() => {
+    document.title = "Contact Me | Yadam's Portfolio";
+  }, []);
+
+  useEffect(() => {
     const fetchContent = async () => {
       try {
         const res = await axios.get(

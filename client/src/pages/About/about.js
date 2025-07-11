@@ -12,6 +12,10 @@ const AboutMe = () => {
       .catch(console.error);
   }, []);
 
+  useEffect(() => {
+    document.title = "About Me | Yadam's Portfolio";
+  }, []);
+
   const renderWithLineBreaks = (text) => {
     if (!text || typeof text !== 'string') return null;
     return text.split('\n').map((line, idx) => (
