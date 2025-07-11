@@ -13,6 +13,7 @@ import Skills from './pages/Skills/Skills';
 import Testimonials from './pages/Testimonials/Testimonials';
 import ForgotPassword from './pages/AdminLogin/ForgotPassword';
 import ResetPassword from './pages/AdminLogin/ResetPassword';
+import './App.css'; // Import global styles
 
 function App() {
   return (
