@@ -142,14 +142,18 @@ const ProjectShowcase = () => {
                 <strong>{intern.duration}</strong>.
               </p>
               {intern.certificate && (
-                <a
-                  href={intern.certificate}
-                  target="_blank"
+                <button
                   className="btn-glow"
-                  rel="noreferrer"
+                  onClick={() =>
+                    openModal(
+                      'pdf',
+                      intern.certificate,
+                      `${intern.company} Certificate`
+                    )
+                  }
                 >
                   View Certificate
-                </a>
+                </button>
               )}
             </div>
           </div>
