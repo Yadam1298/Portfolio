@@ -44,6 +44,27 @@ const ProjectShowcase = () => {
     setModalContent({ type: '', src: '', title: '' });
   };
 
+  // ✅ Helper to convert YouTube URLs to embeddable format
+  const getYouTubeEmbedUrl = (url) => {
+    try {
+      if (url.includes('youtube.com/watch')) {
+        const videoId = new URL(url).searchParams.get('v');
+        return `https://www.youtube.com/embed/${videoId}`;
+      } else if (url.includes('youtu.be/')) {
+        const videoId = url.split('/').pop();
+        return `https://www.youtube.com/embed/${videoId}`;
+      }
+      return url; // fallback for non-YouTube URLs
+    } catch (err) {
+      console.error('Invalid video URL:', url);
+      return '';
+    }
+  };
+
+  // ✅ Helper to check if video is a YouTube URL
+  const isYouTubeUrl = (url) =>
+    url.includes('youtu.be') || url.includes('youtube.com');
+
   return (
     <div className="project-showcase">
       <h1>My Projects</h1>
@@ -144,11 +165,21 @@ const ProjectShowcase = () => {
                 &times;
               </button>
             </div>
+
             {modalContent.type === 'pdf' ? (
               <embed
                 src={modalContent.src}
                 type="application/pdf"
                 className="modal-pdf"
+              />
+            ) : isYouTubeUrl(modalContent.src) ? (
+              <iframe
+                src={getYouTubeEmbedUrl(modalContent.src)}
+                className="modal-video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title="YouTube Video"
               />
             ) : (
               <video
