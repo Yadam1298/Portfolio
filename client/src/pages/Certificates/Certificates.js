@@ -39,13 +39,17 @@ const Certificates = () => {
         {certificates.length === 0 && <p>No certificates found.</p>}
         {certificates.map((cert, index) => (
           <div className="cert-card" key={index}>
-            <img src={cert.logo} alt="logo" className="cert-logo" />
-            <h3 className="cert-card-title">{cert.title}</h3>
-            <p className="cert-org">{cert.organization}</p>
-            <p className="cert-date">{cert.date}</p>
-            <button onClick={() => openModal(cert)} className="cert-link">
-              View Certificate
-            </button>
+            <div className="card-front">
+              <img src={cert.logo} alt="logo" className="cert-logo" />
+              <h3 className="cert-card-title">{cert.title}</h3>
+            </div>
+            <div className="card-back">
+              <p className="cert-org">{cert.organization}</p>
+              <p className="cert-date">{cert.date}</p>
+              <button onClick={() => openModal(cert)} className="cert-link">
+                View Certificate
+              </button>
+            </div>
           </div>
         ))}
       </div>
@@ -62,11 +66,13 @@ const Certificates = () => {
                 &times;
               </button>
             </div>
-            <embed
+            <iframe
               src={selectedCert.link}
               type="application/pdf"
+              title="Certificate PDF"
               className="cert-modal-pdf"
-            />
+              frameBorder="0"
+            ></iframe>
             <div className="cert-modal-footer">
               <p className="cert-modal-org">{selectedCert.organization}</p>
               <p className="cert-modal-date">{selectedCert.date}</p>

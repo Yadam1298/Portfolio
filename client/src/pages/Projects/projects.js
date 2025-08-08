@@ -171,11 +171,13 @@ const ProjectShowcase = () => {
             </div>
 
             {modalContent.type === 'pdf' ? (
-              <embed
+              <iframe
                 src={modalContent.src}
                 type="application/pdf"
+                title="Certificate PDF"
                 className="modal-pdf"
-              />
+                frameBorder="0"
+              ></iframe>
             ) : isYouTubeUrl(modalContent.src) ? (
               <iframe
                 src={getYouTubeEmbedUrl(modalContent.src)}
