@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../utils/axios'; // your axios instance
 import './ResetPassword.css';
 
 const ResetPassword = () => {
@@ -14,26 +14,39 @@ const ResetPassword = () => {
 
   const handleReset = async (e) => {
     e.preventDefault();
-    if (password !== confirm) {
-      setMessage('Passwords do not match');
+    setMessage('');
+
+    // Trim passwords
+    const trimmedPassword = password.trim();
+    const trimmedConfirm = confirm.trim();
+
+    // Basic validation
+    if (!trimmedPassword || !trimmedConfirm) {
+      setMessage('Please enter both password fields.');
+      return;
+    }
+    if (trimmedPassword.length < 6) {
+      setMessage('Password must be at least 6 characters long.');
+      return;
+    }
+    if (trimmedPassword !== trimmedConfirm) {
+      setMessage('Passwords do not match.');
       return;
     }
 
     setLoading(true);
-    setMessage('');
 
     try {
-      const res = await axios.post(
-        `https://portfolio-server-k361.onrender.com/api/auth/reset-password/${token}`,
-        {
-          password,
-        }
-      );
+      const res = await axios.post(`/api/auth/reset-password/${token}`, {
+        password: trimmedPassword,
+      });
 
-      setMessage(res.data.message);
+      setMessage(res.data.message || 'Password reset successfully!');
       setTimeout(() => navigate('/login'), 3000); // Redirect after 3 sec
     } catch (err) {
-      setMessage(err.response?.data?.error || 'Something went wrong');
+      setMessage(
+        err.response?.data?.error || 'Something went wrong. Please try again.'
+      );
     }
 
     setLoading(false);
