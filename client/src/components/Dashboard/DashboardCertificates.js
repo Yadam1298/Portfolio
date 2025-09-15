@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../../utils/axios'; // ✅ use global axios instance
 import './dashboardCertificates.css';
 
 const DashboardCertificates = () => {
@@ -13,9 +13,7 @@ const DashboardCertificates = () => {
 
   const fetchCertificates = async () => {
     try {
-      const res = await axios.get(
-        'https://portfolio-server-k361.onrender.com/api/certificates'
-      );
+      const res = await axios.get('/api/certificates');
       // Add isEditing = false to each
       const certs = res.data.map((cert) => ({ ...cert, isEditing: false }));
       setCertificates(certs);
@@ -62,19 +60,13 @@ const DashboardCertificates = () => {
     try {
       if (cert._id) {
         // Update existing certificate
-        const res = await axios.put(
-          `https://portfolio-server-k361.onrender.com/api/certificates/${cert._id}`,
-          cert
-        );
+        const res = await axios.put(`/api/certificates/${cert._id}`, cert);
         const updated = [...certificates];
         updated[index] = { ...res.data, isEditing: false };
         setCertificates(updated);
       } else {
         // Create new certificate
-        const res = await axios.post(
-          'https://portfolio-server-k361.onrender.com/api/certificates',
-          cert
-        );
+        const res = await axios.post('/api/certificates', cert);
         const updated = [...certificates];
         updated[index] = { ...res.data, isEditing: false };
         setCertificates(updated);
@@ -89,9 +81,7 @@ const DashboardCertificates = () => {
     const cert = certificates[index];
     if (cert._id) {
       try {
-        await axios.delete(
-          `https://portfolio-server-k361.onrender.com/api/certificates/${cert._id}`
-        );
+        await axios.delete(`/api/certificates/${cert._id}`);
       } catch (err) {
         alert('Failed to delete certificate');
         console.error(err);

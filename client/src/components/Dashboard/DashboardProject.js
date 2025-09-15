@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../../utils/axios'; // ✅ use global axios instance
 import './DashboardProject.css';
 
 const DashboardProjects = () => {
@@ -17,7 +17,7 @@ const DashboardProjects = () => {
 
   useEffect(() => {
     axios
-      .get('https://portfolio-server-k361.onrender.com/api/projects')
+      .get('/api/projects')
       .then((res) => {
         setProjects(res.data.length ? res.data : [getEmptyProject()]);
         setLoading(false);
@@ -57,7 +57,7 @@ const DashboardProjects = () => {
   };
 
   const deleteProject = async (id, index) => {
-    if (id) await axios.delete(`https://portfolio-server-k361.onrender.com/api/projects/${id}`);
+    if (id) await axios.delete(`/api/projects/${id}`);
     const updated = [...projects];
     updated.splice(index, 1);
     setProjects(updated);
@@ -66,16 +66,13 @@ const DashboardProjects = () => {
   const saveChanges = async () => {
     for (let project of projects) {
       if (project._id) {
-        await axios.put(
-          `https://portfolio-server-k361.onrender.com/api/projects/${project._id}`,
-          project
-        );
+        await axios.put(`/api/projects/${project._id}`, project);
       } else {
-        await axios.post('https://portfolio-server-k361.onrender.com/api/projects', project);
+        await axios.post('/api/projects', project);
       }
     }
     alert('✅ Projects saved!');
-    const res = await axios.get('https://portfolio-server-k361.onrender.com/api/projects');
+    const res = await axios.get('/api/projects');
     setProjects(res.data);
   };
 

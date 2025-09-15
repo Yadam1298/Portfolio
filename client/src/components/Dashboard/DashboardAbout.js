@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../../utils/axios'; // ✅ use global axios instance
 import './dashboardAbout.css';
 
 const DashboardAbout = () => {
@@ -10,9 +10,7 @@ const DashboardAbout = () => {
   useEffect(() => {
     const fetchAbout = async () => {
       try {
-        const res = await axios.get(
-          'https://portfolio-server-k361.onrender.com/api/about'
-        );
+        const res = await axios.get('/api/about');
         if (res.data && (res.data.aboutMe || res.data.sections?.length)) {
           setAboutMe(res.data.aboutMe || '');
           const preparedSections = (res.data.sections || []).map((sec) => ({
@@ -99,10 +97,7 @@ const DashboardAbout = () => {
     const fullData = { aboutMe, sections: finalSections };
 
     try {
-      await axios.post(
-        'https://portfolio-server-k361.onrender.com/api/about',
-        fullData
-      );
+      await axios.post('/api/about', fullData);
       setMessage('Changes saved successfully!');
     } catch (err) {
       console.error('Failed to save About info', err);

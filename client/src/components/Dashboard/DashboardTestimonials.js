@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../../utils/axios'; // ✅ use global axios instance
 import './DashboardTestimonials.css';
 
 const DashboardTestimonials = () => {
@@ -13,7 +13,7 @@ const DashboardTestimonials = () => {
 
   useEffect(() => {
     axios
-      .get('https://portfolio-server-k361.onrender.com/api/testimonials')
+      .get('/api/testimonials')
       .then((res) => {
         if (res.data.length > 0) {
           setTestimonials(res.data);
@@ -37,10 +37,7 @@ const DashboardTestimonials = () => {
   };
 
   const deleteTestimonial = async (index, id) => {
-    if (id)
-      await axios.delete(
-        `https://portfolio-server-k361.onrender.com/api/testimonials/${id}`
-      );
+    if (id) await axios.delete(`/api/testimonials/${id}`);
     const updated = [...testimonials];
     updated.splice(index, 1);
     if (updated.length === 0) updated.push(getEmptyTestimonial());
@@ -51,20 +48,12 @@ const DashboardTestimonials = () => {
     try {
       for (let t of testimonials) {
         if (t._id) {
-          await axios.put(
-            `https://portfolio-server-k361.onrender.com/api/testimonials/${t._id}`,
-            t
-          );
+          await axios.put(`/api/testimonials/${t._id}`, t);
         } else {
-          await axios.post(
-            'https://portfolio-server-k361.onrender.com/api/testimonials',
-            t
-          );
+          await axios.post('/api/testimonials', t);
         }
       }
-      const res = await axios.get(
-        'https://portfolio-server-k361.onrender.com/api/testimonials'
-      );
+      const res = await axios.get('/api/testimonials');
       setTestimonials(res.data);
       alert('✅ Testimonials saved successfully!');
     } catch (err) {

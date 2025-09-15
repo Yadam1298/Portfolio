@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../../utils/axios'; // ✅ use global axios instance
 import './DashboardProject.css';
 
 const DashboardInternships = () => {
@@ -16,7 +16,7 @@ const DashboardInternships = () => {
 
   useEffect(() => {
     axios
-      .get('https://portfolio-server-k361.onrender.com/api/internships')
+      .get('/api/internships')
       .then((res) => {
         setInternships(res.data.length ? res.data : [getEmptyIntern()]);
         setLoading(false);
@@ -38,10 +38,7 @@ const DashboardInternships = () => {
   };
 
   const deleteInternship = async (id, index) => {
-    if (id)
-      await axios.delete(
-        `https://portfolio-server-k361.onrender.com/api/internships/${id}`
-      );
+    if (id) await axios.delete(`/api/internships/${id}`);
     const updated = [...internships];
     updated.splice(index, 1);
     setInternships(updated);
@@ -50,22 +47,14 @@ const DashboardInternships = () => {
   const saveChanges = async () => {
     for (let intern of internships) {
       if (intern._id) {
-        await axios.put(
-          `https://portfolio-server-k361.onrender.com/api/internships/${intern._id}`,
-          intern
-        );
+        await axios.put(`/api/internships/${intern._id}`, intern);
       } else {
-        await axios.post(
-          'https://portfolio-server-k361.onrender.com/api/internships',
-          intern
-        );
+        await axios.post('/api/internships', intern);
       }
     }
 
     alert('✅ Internships saved!');
-    const res = await axios.get(
-      'https://portfolio-server-k361.onrender.com/api/internships'
-    );
+    const res = await axios.get('/api/internships');
     setInternships(res.data);
   };
 

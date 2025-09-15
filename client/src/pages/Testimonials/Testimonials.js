@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../../utils/axios'; // ✅ use global axios instance
 import './testimonials.css';
 
 const Testimonials = () => {
@@ -16,7 +16,7 @@ const Testimonials = () => {
 
   useEffect(() => {
     axios
-      .get('https://portfolio-server-k361.onrender.com/api/testimonials')
+      .get('/api/testimonials') // ✅ removed full server URL
       .then((res) => setTestimonials(res.data))
       .catch((err) => console.error('Error loading testimonials:', err));
   }, []);
@@ -25,10 +25,7 @@ const Testimonials = () => {
     e.preventDefault();
     setSubmitMessage('');
     try {
-      const res = await axios.post(
-        'https://portfolio-server-k361.onrender.com/api/testimonials',
-        newTestimonial
-      );
+      const res = await axios.post('/api/testimonials', newTestimonial); // ✅ removed full server URL
       setTestimonials([...testimonials, res.data]);
       setNewTestimonial({ name: '', message: '' });
       setSubmitMessage('Thank you for your testimonial!');

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from '../../utils/axios'; // ✅ import axios instance
 import './Login.css';
 
 const Login = () => {
@@ -12,9 +13,8 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Clear any existing login data (for security)
     localStorage.removeItem('token');
-    sessionStorage.clear(); // If you're using sessionStorage
+    sessionStorage.clear();
     document.title = "Yadam's Login";
   }, []);
 
@@ -23,60 +23,36 @@ const Login = () => {
     setShowEncrypting(true);
 
     try {
-      const response = await fetch(
-        'https://portfolio-server-k361.onrender.com/api/auth/login',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password }),
-        }
-      );
-
-      if (response.ok) {
-        setShowNotification(true);
-        // Keep encrypting message until user proceeds
-      } else {
-        const data = await response.json();
-        alert(data.message || 'Invalid username or password');
-        setShowEncrypting(false); // Allow retry
-      }
+      const { data } = await axios.post('/api/auth/login', {
+        username,
+        password,
+      });
+      // OTP sent successfully
+      setShowNotification(true);
     } catch (error) {
-      alert('Server error. Please try again later.');
-      console.error(error);
-      setShowEncrypting(false); // Allow retry
+      alert(error.response?.data?.message || 'Invalid username or password');
+      setShowEncrypting(false);
     }
   };
 
   const handleCloseNotification = () => {
     setShowNotification(false);
     setStep(2);
-    setShowEncrypting(false); // Done encrypting
+    setShowEncrypting(false);
   };
 
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
     if (otp.length === 6) {
       try {
-        const response = await fetch(
-          'https://portfolio-server-k361.onrender.com/api/auth/verify-otp',
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, otp }),
-          }
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          localStorage.setItem('token', data.token);
-          navigate('/dashboard');
-        } else {
-          const data = await response.json();
-          alert(data.message || 'Invalid OTP');
-        }
+        const { data } = await axios.post('/api/auth/verify-otp', {
+          username,
+          otp,
+        });
+        localStorage.setItem('token', data.token);
+        navigate('/dashboard');
       } catch (error) {
-        alert('Server error during OTP verification.');
-        console.error(error);
+        alert(error.response?.data?.message || 'Invalid OTP');
       }
     } else {
       alert('Please enter a valid 6-digit OTP');
@@ -140,7 +116,7 @@ const Login = () => {
                   maxLength="6"
                   required
                   value={otp}
-                  onChange={(e) => setOtp(e.target.value.replace(/\D/, ''))}
+                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
                   pattern="\d{6}"
                   autoComplete="off"
                 />

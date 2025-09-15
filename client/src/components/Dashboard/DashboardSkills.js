@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../../utils/axios'; // ✅ use global axios instance
 import './DashboardSkills.css';
 
 const DashboardSkills = () => {
@@ -19,7 +19,7 @@ const DashboardSkills = () => {
 
   useEffect(() => {
     axios
-      .get('https://portfolio-server-k361.onrender.com/api/skills')
+      .get('/api/skills')
       .then((res) => {
         if (res.data.length > 0) {
           setSkillsData(res.data);
@@ -71,10 +71,7 @@ const DashboardSkills = () => {
 
   const saveToDB = async () => {
     try {
-      await axios.post(
-        'https://portfolio-server-k361.onrender.com/api/skills',
-        skillsData
-      );
+      await axios.post('/api/skills', skillsData);
       alert('✅ Skills saved successfully!');
     } catch (err) {
       console.error('Save error:', err);

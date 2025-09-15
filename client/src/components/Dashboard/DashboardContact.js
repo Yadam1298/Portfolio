@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ContactMe from '../../pages/Contact/ContactMe';
+import axios from '../../utils/axios'; // ✅ use global axios instance
 
 const DashboardContact = () => {
   const [contactData, setContactData] = useState({
@@ -17,10 +18,8 @@ const DashboardContact = () => {
 
   const fetchContactData = async () => {
     try {
-      const res = await fetch(
-        'https://portfolio-server-k361.onrender.com/api/contact'
-      );
-      const data = await res.json();
+      const res = await axios.get('/api/contact');
+      const data = res.data;
 
       if (data && data.title) {
         setContactData({
@@ -62,16 +61,8 @@ const DashboardContact = () => {
 
   const saveContact = async () => {
     try {
-      const res = await fetch(
-        'https://portfolio-server-k361.onrender.com/api/contact/update',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(contactData),
-        }
-      );
-
-      if (res.ok) {
+      const res = await axios.post('/api/contact/update', contactData);
+      if (res.status === 200) {
         alert('Contact info saved!');
         setIsExistingData(true);
       } else {
@@ -86,17 +77,12 @@ const DashboardContact = () => {
   const handleDeleteMessage = async (index) => {
     const target = messages[index];
     try {
-      await fetch(
-        'https://portfolio-server-k361.onrender.com/api/contact/delete-message',
-        {
-          method: 'DELETE',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: target.email,
-            message: target.message,
-          }),
-        }
-      );
+      await axios.delete('/api/contact/delete-message', {
+        data: {
+          email: target.email,
+          message: target.message,
+        },
+      });
     } catch (err) {
       console.error('Failed to delete message:', err);
     }

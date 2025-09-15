@@ -1,13 +1,13 @@
 const originalFetch = window.fetch;
 
-window.fetch = async function(url, options) {
+window.fetch = async function (url, options) {
   const key = url + (options ? JSON.stringify(options) : '');
   const cached = sessionStorage.getItem(key);
   if (cached) {
     return new Response(new Blob([cached]), {
       status: 200,
       statusText: 'OK',
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
     });
   }
   try {
@@ -21,4 +21,4 @@ window.fetch = async function(url, options) {
     console.error('Global fetch cache error:', error);
     throw error;
   }
-}; 
+};

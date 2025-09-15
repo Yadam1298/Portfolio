@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../../utils/axios'; // ✅ use global axios instance
 import './ContactMe.css';
 
 const ContactMe = () => {
@@ -16,9 +16,7 @@ const ContactMe = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const res = await axios.get(
-          'https://portfolio-server-k361.onrender.com/api/contact'
-        );
+        const res = await axios.get('/api/contact');
         setContent(res.data);
       } catch (err) {
         console.error('Error fetching contact content:', err);

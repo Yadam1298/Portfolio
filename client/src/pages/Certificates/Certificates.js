@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './certificates.css';
+import axios from '../../utils/axios'; // ✅ use global axios instance
 
 const Certificates = () => {
   const [certificates, setCertificates] = useState([]);
@@ -11,10 +12,10 @@ const Certificates = () => {
   }, []);
 
   useEffect(() => {
-    fetch('https://portfolio-server-k361.onrender.com/api/certificates')
-      .then((res) => res.json())
-      .then((data) => {
-        setCertificates(data);
+    axios
+      .get('/api/certificates')
+      .then((res) => {
+        setCertificates(res.data);
       })
       .catch((err) => {
         console.error('Failed to fetch certificates:', err);

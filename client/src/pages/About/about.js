@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../../utils/axios'; // ✅ use global axios instance
 import './about.css';
 
 const AboutMe = () => {
@@ -7,7 +7,7 @@ const AboutMe = () => {
 
   useEffect(() => {
     axios
-      .get('https://portfolio-server-k361.onrender.com/api/about')
+      .get('/api/about')
       .then((res) => setData(res.data))
       .catch(console.error);
   }, []);

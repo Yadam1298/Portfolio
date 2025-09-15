@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../../utils/axios'; // ✅ use global axios instance
 import './skills.css';
 
 const Skills = () => {
@@ -12,7 +12,7 @@ const Skills = () => {
 
   useEffect(() => {
     axios
-      .get('https://portfolio-server-k361.onrender.com/api/skills')
+      .get('/api/skills')
       .then((res) => {
         setSkillsData(res.data);
         setLoading(false);

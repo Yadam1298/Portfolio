@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../../utils/axios'; // ✅ use global axios instance
 import './project.css';
 
 const ProjectShowcase = () => {
@@ -20,10 +20,8 @@ const ProjectShowcase = () => {
     const fetchData = async () => {
       try {
         const [projRes, internRes] = await Promise.all([
-          axios.get('https://portfolio-server-k361.onrender.com/api/projects'),
-          axios.get(
-            'https://portfolio-server-k361.onrender.com/api/internships'
-          ),
+          axios.get('/api/projects'),
+          axios.get('/api/internships'),
         ]);
         setProjects(projRes.data);
         setInternships(internRes.data);

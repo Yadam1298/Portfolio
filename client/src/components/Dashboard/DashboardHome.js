@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../../utils/axios'; // ✅ use global axios instance
 import './dashboardHome.css';
 
 const DashboardHome = () => {
@@ -22,7 +22,7 @@ const DashboardHome = () => {
 
   useEffect(() => {
     axios
-      .get('https://portfolio-server-k361.onrender.com/api/homepage')
+      .get('/api/homepage')
       .then((res) => {
         const data = res.data || {};
 
@@ -70,7 +70,7 @@ const DashboardHome = () => {
     };
 
     axios
-      .put('https://portfolio-server-k361.onrender.com/api/homepage', payload)
+      .put('/api/homepage', payload)
       .then(() => {
         setMessage('✅ Homepage data updated successfully!');
         setTimeout(() => setMessage(''), 4000); // Clear after 4s

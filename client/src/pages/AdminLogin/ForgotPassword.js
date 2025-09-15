@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../../utils/axios'; // ✅ use global axios instance
 import './ForgotPassword.css';
 
 const ForgotPassword = () => {
@@ -11,9 +11,7 @@ const ForgotPassword = () => {
     setMessage('');
 
     try {
-      const res = await axios.get(
-        'https://portfolio-server-k361.onrender.com/api/auth/reset-password'
-      );
+      const res = await axios.get('/api/auth/reset-password'); // ✅ removed full localhost URL
       setMessage(res.data.message);
     } catch (err) {
       setMessage(err.response?.data?.error || 'Something went wrong');

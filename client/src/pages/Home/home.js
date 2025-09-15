@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { SiWhatsapp, SiGmail } from 'react-icons/si';
 import { FaGithub } from 'react-icons/fa';
 import { GrLinkedin } from 'react-icons/gr';
-import axios from 'axios';
+import axios from '../../utils/axios'; // ✅ use global axios instance
 import './home.css';
 
 const Home = () => {
@@ -26,7 +26,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get('https://portfolio-server-k361.onrender.com/api/homepage')
+      .get('/api/homepage')
       .then((res) => setData(res.data))
       .catch((err) => console.error('Error fetching home data', err));
   }, []);
