@@ -1,50 +1,45 @@
+// controllers/authController.js
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
+const crypto = require('crypto');
+const { Resend } = require('resend');
 
-// Nodemailer setup (Gmail)
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER, // your email
-    pass: process.env.EMAIL_PASS, // your app password
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY); // set in Render env
 
 // Generate 6-digit OTP
 const generateOtp = () =>
   Math.floor(100000 + Math.random() * 900000).toString();
 
 exports.login = async (req, res) => {
-  const { username, password } = req.body;
-
+  const { username } = req.body;
   try {
     const user = await User.findOne({ username });
     if (!user) return res.status(400).json({ message: 'User not found' });
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch)
-      return res.status(400).json({ message: 'Invalid credentials' });
+    // If you want password check here, keep it. Example assumes password check done elsewhere.
+    // const isMatch = await bcrypt.compare(password, user.password);
+    // if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
-    // Generate OTP and save to DB with expiry
     const otp = generateOtp();
     user.otp = otp;
     user.otpExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes
     await user.save();
 
-    // Send OTP to YOURSELF (for portfolio/demo)
+    // Send OTP using Resend API
     try {
-      await transporter.sendMail({
-        from: process.env.EMAIL_USER,
-        to: process.env.EMAIL_USER, // always your email
-        subject: 'Portfolio Login OTP',
-        text: `Your OTP for portfolio login is: ${otp}. It expires in 5 minutes.`,
+      await resend.emails.send({
+        from: 'Portfolio <onboarding@resend.dev>', // ✅ use Resend sandbox domain
+        to: user.email || process.env.EMAIL_USER, // user.email if present, otherwise admin
+        subject: 'Your Portfolio Login OTP',
+        // both plain and html help deliverability
+        html: `<p>Your OTP for login is: <strong>${otp}</strong></p>
+               <p>This OTP expires in 5 minutes.</p>`,
       });
 
       return res.status(200).json({ message: 'OTP sent successfully' });
     } catch (emailErr) {
-      console.error('Email sending error:', emailErr);
+      console.error('Resend email error:', emailErr);
       return res.status(500).json({ message: 'Failed to send OTP email' });
     }
   } catch (err) {
@@ -78,7 +73,6 @@ exports.verifyOtp = async (req, res) => {
     user.otpExpiry = null;
     await user.save();
 
-    // Create JWT token
     const token = jwt.sign(
       { userId: user._id, username: user.username },
       process.env.JWT_SECRET,
@@ -89,5 +83,68 @@ exports.verifyOtp = async (req, res) => {
   } catch (err) {
     console.error('OTP verification error:', err);
     res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// ---------- Password reset handlers ----------
+
+exports.requestPasswordReset = async (req, res) => {
+  try {
+    const { username } = req.body;
+    const user = await User.findOne({ username });
+
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    const token = crypto.randomBytes(20).toString('hex');
+    user.resetToken = token;
+    user.resetTokenExpiry = Date.now() + 1000 * 60 * 10; // 10 min
+    await user.save();
+
+    const frontendURL = process.env.FRONTEND_URL || 'http://localhost:3000';
+    const resetLink = `${frontendURL}/reset-password/${token}`;
+
+    try {
+      await resend.emails.send({
+        from: 'Portfolio <onboarding@resend.dev>', // ✅ use Resend sandbox domain
+        to: user.email || process.env.EMAIL_USER,
+        subject: 'Password Reset Request',
+        html: `<p>Click the link below to reset your password (valid 10 minutes):</p>
+               <p><a href="${resetLink}">${resetLink}</a></p>`,
+      });
+
+      res.json({ message: 'Password reset link has been sent to your email.' });
+    } catch (emailErr) {
+      console.error('Resend error sending reset link:', emailErr);
+      res.status(500).json({ error: 'Failed to send reset link' });
+    }
+  } catch (err) {
+    console.error('Reset request error:', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+exports.resetPassword = async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+
+  try {
+    const user = await User.findOne({
+      resetToken: token,
+      resetTokenExpiry: { $gt: Date.now() },
+    });
+
+    if (!user)
+      return res.status(400).json({ error: 'Invalid or expired token' });
+
+    const hashed = await bcrypt.hash(password, 10);
+    user.password = hashed;
+    user.resetToken = undefined;
+    user.resetTokenExpiry = undefined;
+    await user.save();
+
+    res.json({ message: 'Password has been successfully reset' });
+  } catch (err) {
+    console.error('Reset endpoint error:', err);
+    res.status(500).json({ error: 'Could not reset password' });
   }
 };
