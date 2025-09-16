@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:5000', // change to production URL when deploying
+  baseURL: 'https://portfolio-kkac.onrender.com', // change to production URL when deploying
   headers: {
     'Content-Type': 'application/json',
   },
