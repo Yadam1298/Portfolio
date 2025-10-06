@@ -23,7 +23,7 @@ const Login = () => {
     setShowEncrypting(true);
 
     try {
-      const { data: _data } = await axios.post('/api/auth/login', {
+      const { data } = await axios.post('/api/auth/login', {
         username,
         password,
       });
@@ -45,11 +45,11 @@ const Login = () => {
     e.preventDefault();
     if (otp.length === 6) {
       try {
-        const { data: _data } = await axios.post('/api/auth/verify-otp', {
+        const { data } = await axios.post('/api/auth/verify-otp', {
           username,
           otp,
         });
-        localStorage.setItem('token', _data.token);
+        localStorage.setItem('token', data.token);
         navigate('/dashboard');
       } catch (error) {
         alert(error.response?.data?.message || 'Invalid OTP');
