@@ -35,6 +35,16 @@ app.use('/api/internships', internshipRoutes);
 app.use('/api/skills', skillRoutes);
 app.use('/api/testimonials', testimonialRoutes);
 
+// ===== Add Health Check Route =====
+app.get('/', (req, res) => {
+  res.status(200).send('Server is alive!');
+});
+
+// Optional: additional health endpoint
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date() });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
