@@ -44,7 +44,7 @@ const Home = () => {
   if (!data)
     return (
       <div className="home-container">
-        <p>Loading...</p>
+        <p>Render server cold start in progress. Please refresh in 120 seconds.</p>
       </div>
     );
 
