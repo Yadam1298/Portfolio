@@ -28,6 +28,7 @@ const Login = () => {
         password,
       });
       // OTP sent successfully
+      console.log(data); // or actually use it in logic
       setShowNotification(true);
     } catch (error) {
       alert(error.response?.data?.message || 'Invalid username or password');
