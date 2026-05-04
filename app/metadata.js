@@ -1,5 +1,4 @@
 // app/metadata.js
-
 export const metadata = {
   metadataBase: new URL('https://yadam.vercel.app/'), // 🔥 REQUIRED (change after deployment)
 
@@ -71,7 +70,8 @@ export const metadata = {
   },
 
   verification: {
-    google: 'your-google-verification-code', // optional
+    name: 'google-site-verification',
+    content: 'zmTrw1LKwhFecX7fmclztJefuNS__K-tmsOprsa6-TI',
   },
 
   alternates: {
