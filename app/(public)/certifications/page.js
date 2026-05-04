@@ -10,6 +10,20 @@ export default function CertificationPage() {
   const [loading, setLoading] = useState(true);
   const [selectedCert, setSelectedCert] = useState(null);
 
+  const [activeCard, setActiveCard] = useState(null);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setActiveCard(null);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
   useEffect(() => {
     fetchCerts();
   }, []);
@@ -62,13 +76,22 @@ export default function CertificationPage() {
           {certs.map((cert, index) => (
             <motion.div
               key={cert._id}
+              ref={containerRef}
+              onClick={() => setActiveCard(cert._id)}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="cert-card group relative h-[260px] rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-950 shadow-xl"
+              className="relative h-[260px] rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-950 shadow-xl cursor-pointer"
             >
               {/* FRONT */}
-              <div className="card-front absolute inset-0 flex flex-col items-center justify-center transition-all duration-500 group-hover:-translate-y-full group-hover:opacity-0">
+              <div
+                className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-500
+    ${
+      activeCard === cert._id
+        ? '-translate-y-full opacity-0'
+        : 'translate-y-0 opacity-100'
+    }`}
+              >
                 <div className="w-14 h-14 rounded-full bg-purple-500/20 flex items-center justify-center mb-4">
                   <img
                     src={cert.logoUrl || '/placeholder.png'}
@@ -83,12 +106,22 @@ export default function CertificationPage() {
               </div>
 
               {/* BACK */}
-              <div className="card-back absolute inset-0 flex flex-col justify-center items-center text-center px-4 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 bg-gradient-to-br from-zinc-900 to-black">
+              <div
+                className={`absolute inset-0 flex flex-col justify-center items-center text-center px-4 transition-all duration-500 bg-gradient-to-br from-zinc-900 to-black
+    ${
+      activeCard === cert._id
+        ? 'translate-y-0 opacity-100'
+        : 'translate-y-full opacity-0'
+    }`}
+              >
                 <p className="text-gray-300 text-sm">{cert.organization}</p>
                 <p className="text-gray-500 text-xs mt-1">{cert.date}</p>
 
                 <button
-                  onClick={() => setSelectedCert(cert)}
+                  onClick={(e) => {
+                    e.stopPropagation(); // IMPORTANT
+                    setSelectedCert(cert);
+                  }}
                   className="mt-6 px-4 py-2 text-sm border border-purple-500 text-purple-400 rounded-lg hover:bg-purple-500 hover:text-white transition"
                 >
                   View Certificate
