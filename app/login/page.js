@@ -31,6 +31,11 @@ export default function Login() {
       console.log('Send OTP response:', data);
 
       if (!res.ok) {
+        if (res.status === 403) {
+          setError(data.message); // show message
+          return; // 🚫 stop here, don't throw
+        }
+
         throw new Error(data.message || 'Failed to send OTP');
       }
 
@@ -63,7 +68,12 @@ export default function Login() {
       console.log('Verify OTP response:', data);
 
       if (!res.ok) {
-        throw new Error(data?.message || 'Invalid OTP');
+        if (res.status === 403) {
+          setError(data.message); // show message
+          return; // 🚫 stop here, don't throw
+        }
+
+        throw new Error(data.message || 'Failed to send OTP');
       }
 
       // Store token in sessionStorage
