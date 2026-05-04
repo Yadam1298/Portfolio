@@ -6,7 +6,6 @@ export async function POST(req) {
   try {
     console.log('1. Starting send-otp API');
 
-    // Connect to database
     await connectDB();
     console.log('2. Database connected successfully');
 
@@ -17,14 +16,25 @@ export async function POST(req) {
       return Response.json({ message: 'Email is required' }, { status: 400 });
     }
 
+    // ✅ 🔒 EMAIL RESTRICTION (IMPORTANT)
+    const ADMIN_EMAIL = 'y.n.v.n.kumar@gmail.com';
+
+    if (email !== ADMIN_EMAIL) {
+      console.log('❌ Unauthorized access attempt:', email);
+
+      return Response.json(
+        { message: "You don't have access to login" },
+        { status: 403 },
+      );
+    }
+
+    // ✅ Only authorized email reaches here
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     console.log('4. OTP generated:', otp);
 
-    // Delete existing OTP
     await Otp.findOneAndDelete({ email });
     console.log('5. Existing OTP deleted');
 
-    // Create new OTP
     const otpDoc = await Otp.create({
       email,
       otp,
@@ -32,7 +42,6 @@ export async function POST(req) {
     });
     console.log('6. OTP created in DB:', otpDoc);
 
-    // Send email
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -46,11 +55,13 @@ export async function POST(req) {
       subject: 'Your OTP',
       html: `<h2>${otp}</h2>`,
     });
+
     console.log('7. Email sent successfully');
 
     return Response.json({ message: 'OTP sent' });
   } catch (error) {
     console.error('Error in send-otp:', error);
+
     return Response.json(
       {
         message: 'Failed to send OTP',
