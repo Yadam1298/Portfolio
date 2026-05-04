@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiExternalLink, FiX } from 'react-icons/fi';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
