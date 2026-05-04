@@ -38,7 +38,7 @@ export const metadata = {
     siteName: 'Naveen Kumar Portfolio',
     images: [
       {
-        url: '/og-image.jpg',
+        url: 'https://i.ibb.co/DPNnnbTF/Gemini-Generated-Image-8w62sz8w62sz8w62.png',
         width: 1200,
         height: 630,
         alt: 'Naveen Kumar Portfolio',
@@ -53,8 +53,10 @@ export const metadata = {
     title: 'Naveen Kumar - Full Stack Developer',
     description:
       'Professional portfolio showcasing my work as a Full Stack Developer',
-    images: ['/og-image.jpg'],
-    creator: '@yourtwitterhandle', // 🔥 update or remove
+    images: [
+      'https://i.ibb.co/DPNnnbTF/Gemini-Generated-Image-8w62sz8w62sz8w62.png',
+    ],
+    creator: '@ynvnk_23', // 🔥 update or remove
   },
 
   robots: {
