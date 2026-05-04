@@ -120,6 +120,7 @@ export default function RetroPortfolio() {
             <motion.div
               className="bg-white w-[150px] h-[150px] md:w-[300px] md:h-[300px] rounded-[20%] border-3 border-white overflow-hidden"
               whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
               <motion.img
@@ -130,12 +131,14 @@ export default function RetroPortfolio() {
                 alt="Profile"
                 className="w-[90%] h-[90%] object-cover rounded-full border-5 border-black mx-auto mt-[5%]"
                 initial={{ borderRadius: '50%' }}
-                animate={{ borderRadius: '50%' }}
                 whileHover={{
                   borderRadius: '20%',
                   scale: 1.05,
-                  transition: { duration: 0.4, ease: 'easeInOut' },
-                }}
+                }} // desktop
+                whileTap={{
+                  borderRadius: '20%',
+                  scale: 0.95,
+                }} // mobile
                 transition={{ duration: 0.3 }}
               />
             </motion.div>
