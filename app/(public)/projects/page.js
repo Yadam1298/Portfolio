@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import {
   FiGithub,
@@ -24,6 +24,21 @@ export default function Projects() {
     title: '',
   });
 
+  const [activeCard, setActiveCard] = useState(null);
+  const containerRef = useRef(null);
+
+  // ✅ Outside click reset
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setActiveCard(null);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -38,11 +53,8 @@ export default function Projects() {
 
       if (!pRes.ok || !iRes.ok) throw new Error('API error');
 
-      const pData = await pRes.json();
-      const iData = await iRes.json();
-
-      setProjects(pData || []);
-      setInternships(iData || []);
+      setProjects(await pRes.json());
+      setInternships(await iRes.json());
     } catch (err) {
       console.error(err);
       setProjects([]);
@@ -111,117 +123,155 @@ export default function Projects() {
       </div>
 
       {/* GRID */}
-      <div className="grid md:grid-cols-3 gap-6">
-        {/* ================= PROJECT CARDS ================= */}
+      <div ref={containerRef} className="grid md:grid-cols-3 gap-6">
+        {/* ================= PROJECTS ================= */}
         {activeTab === 'projects' &&
-          projects.map((p, i) => (
-            <div
-              key={i}
-              className="relative h-[320px] rounded-xl overflow-hidden bg-white/5 border border-white/10 group"
-            >
-              {/* FRONT (SLIDE UP ON HOVER) */}
-              <div className="absolute inset-0 p-5 flex flex-col justify-center items-center text-center transition-all duration-700 group-hover:-translate-y-full group-hover:opacity-0">
-                <h3 className="text-xl font-bold">{p.projectTitle}</h3>
-                <p className="text-gray-400 mt-2 text-sm">{p.description}</p>
+          projects.map((p, i) => {
+            const id = p._id || i;
 
-                <div className="flex flex-wrap justify-center gap-2 mt-4">
-                  {(p.technologies || []).slice(0, 4).map((t, idx) => (
-                    <span
-                      key={idx}
-                      className="text-xs px-3 py-1 rounded-full bg-purple-600/30 border border-purple-500/30"
-                    >
-                      {t}
-                    </span>
-                  ))}
+            return (
+              <div
+                key={id}
+                onClick={() => setActiveCard(activeCard === id ? null : id)}
+                className="relative h-[320px] rounded-xl overflow-hidden bg-white/5 border border-white/10 cursor-pointer"
+              >
+                {/* FRONT */}
+                <div
+                  className={`absolute inset-0 p-5 flex flex-col justify-center items-center text-center transition-all duration-700
+                  ${
+                    activeCard === id
+                      ? '-translate-y-full opacity-0'
+                      : 'translate-y-0 opacity-100'
+                  }`}
+                >
+                  <h3 className="text-xl font-bold">{p.projectTitle}</h3>
+                  <p className="text-gray-400 mt-2 text-sm">{p.description}</p>
+
+                  <div className="flex flex-wrap justify-center gap-2 mt-4">
+                    {(p.technologies || []).slice(0, 4).map((t, idx) => (
+                      <span
+                        key={idx}
+                        className="text-xs px-3 py-1 rounded-full bg-purple-600/30 border border-purple-500/30"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* BACK */}
+                <div
+                  className={`absolute inset-0 p-5 flex flex-col justify-center items-center text-center transition-all duration-700
+                  ${
+                    activeCard === id
+                      ? 'translate-y-0 opacity-100'
+                      : 'translate-y-full opacity-0'
+                  }`}
+                >
+                  <div className="flex flex-col gap-3 w-full">
+                    {p.gitrepoLink && (
+                      <a
+                        href={p.gitrepoLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="flex items-center justify-center gap-2 border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black transition"
+                      >
+                        <FiGithub /> GitHub
+                      </a>
+                    )}
+
+                    {p.abstractLink && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openModal('pdf', p.abstractLink, p.projectTitle);
+                        }}
+                        className="flex items-center justify-center gap-2 border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black transition"
+                      >
+                        <FiFileText /> Abstract
+                      </button>
+                    )}
+
+                    {p.liveDemoVideoLink && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openModal(
+                            'video',
+                            p.liveDemoVideoLink,
+                            p.projectTitle,
+                          );
+                        }}
+                        className="flex items-center justify-center gap-2 border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black transition"
+                      >
+                        <FiVideo /> Video
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
-
-              {/* BACK (POP IN BUTTONS) */}
-              <div className="absolute inset-0 p-5 flex flex-col justify-center items-center text-center translate-y-full opacity-0 transition-all duration-700 group-hover:translate-y-0 group-hover:opacity-100">
-                <div className="flex flex-col gap-3 w-full">
-                  {/* GitHub */}
-                  {p.gitrepoLink && (
-                    <a
-                      href={p.gitrepoLink}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center justify-center gap-2 border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black transition"
-                    >
-                      <FiGithub />
-                      GitHub
-                    </a>
-                  )}
-
-                  {/* Abstract */}
-                  {p.abstractLink && (
-                    <button
-                      onClick={() =>
-                        openModal('pdf', p.abstractLink, p.projectTitle)
-                      }
-                      className="flex items-center justify-center gap-2 border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black transition"
-                    >
-                      <FiFileText />
-                      Abstract
-                    </button>
-                  )}
-
-                  {/* Video */}
-                  {p.liveDemoVideoLink && (
-                    <button
-                      onClick={() =>
-                        openModal('video', p.liveDemoVideoLink, p.projectTitle)
-                      }
-                      className="flex items-center justify-center gap-2 border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black transition"
-                    >
-                      <FiVideo />
-                      Video
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
+            );
+          })}
 
         {/* ================= INTERNSHIPS ================= */}
         {activeTab === 'internships' &&
-          internships.map((i, idx) => (
-            <div
-              key={idx}
-              className="relative h-[320px] rounded-xl overflow-hidden bg-white/5 border border-white/10 group"
-            >
-              {/* FRONT */}
-              <div className="absolute inset-0 p-5 flex flex-col justify-center items-center text-center transition-all duration-700 group-hover:-translate-y-full group-hover:opacity-0">
-                <h3 className="text-xl font-bold">{i.company}</h3>
-                <p className="text-purple-400">{i.role}</p>
+          internships.map((i, idx) => {
+            const id = i._id || idx;
 
-                <div className="flex items-center gap-2 mt-2 text-gray-400 text-sm">
-                  <FiCalendar />
-                  {i.duration}
+            return (
+              <div
+                key={id}
+                onClick={() => setActiveCard(activeCard === id ? null : id)}
+                className="relative h-[320px] rounded-xl overflow-hidden bg-white/5 border border-white/10 cursor-pointer"
+              >
+                {/* FRONT */}
+                <div
+                  className={`absolute inset-0 p-5 flex flex-col justify-center items-center text-center transition-all duration-700
+                  ${
+                    activeCard === id
+                      ? '-translate-y-full opacity-0'
+                      : 'translate-y-0 opacity-100'
+                  }`}
+                >
+                  <h3 className="text-xl font-bold">{i.company}</h3>
+                  <p className="text-purple-400">{i.role}</p>
+
+                  <div className="flex items-center gap-2 mt-2 text-gray-400 text-sm">
+                    <FiCalendar /> {i.duration}
+                  </div>
+
+                  <p className="text-sm text-gray-400 mt-3">{i.description}</p>
                 </div>
 
-                <p className="text-sm text-gray-400 mt-3">{i.description}</p>
+                {/* BACK */}
+                <div
+                  className={`absolute inset-0 p-5 flex flex-col justify-center items-center text-center transition-all duration-700
+                  ${
+                    activeCard === id
+                      ? 'translate-y-0 opacity-100'
+                      : 'translate-y-full opacity-0'
+                  }`}
+                >
+                  {i.certificateLink && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openModal(
+                          'pdf',
+                          i.certificateLink,
+                          `${i.company} Certificate`,
+                        );
+                      }}
+                      className="flex items-center gap-2 border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black transition"
+                    >
+                      <FiAward /> View Certificate
+                    </button>
+                  )}
+                </div>
               </div>
-
-              {/* BACK */}
-              <div className="absolute inset-0 p-5 flex flex-col justify-center items-center text-center translate-y-full opacity-0 transition-all duration-700 group-hover:translate-y-0 group-hover:opacity-100">
-                {i.certificateLink && (
-                  <button
-                    onClick={() =>
-                      openModal(
-                        'pdf',
-                        i.certificateLink,
-                        `${i.company} Certificate`,
-                      )
-                    }
-                    className="flex items-center gap-2 border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black transition"
-                  >
-                    <FiAward />
-                    View Certificate
-                  </button>
-                )}
-              </div>
-            </div>
-          ))}
+            );
+          })}
       </div>
 
       {/* MODAL */}
