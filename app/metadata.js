@@ -70,8 +70,7 @@ export const metadata = {
   },
 
   verification: {
-    name: 'google-site-verification',
-    content: 'zmTrw1LKwhFecX7fmclztJefuNS__K-tmsOprsa6-TI',
+    google: 'zmTrw1LKwhFecX7fmclztJefuNS__K-tmsOprsa6-TI',
   },
 
   alternates: {
