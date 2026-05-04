@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiExternalLink, FiX } from 'react-icons/fi';
+import { FiX } from 'react-icons/fi';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 export default function CertificationPage() {
@@ -13,6 +13,7 @@ export default function CertificationPage() {
   const [activeCard, setActiveCard] = useState(null);
   const containerRef = useRef(null);
 
+  // ✅ Outside click detection
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (containerRef.current && !containerRef.current.contains(e.target)) {
@@ -42,7 +43,7 @@ export default function CertificationPage() {
 
   return (
     <div className="min-h-screen bg-black text-white px-4 py-16 relative overflow-hidden mt-[55px]">
-      {/* BACKGROUND GLOW */}
+      {/* BACKGROUND */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-10 left-10 w-96 h-96 bg-purple-600/20 blur-[120px] rounded-full" />
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-pink-600/20 blur-[120px] rounded-full" />
@@ -72,12 +73,16 @@ export default function CertificationPage() {
 
       {/* GRID */}
       {!loading && (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto relative z-10">
+        <div
+          ref={containerRef} // ✅ FIXED (only once here)
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto relative z-10"
+        >
           {certs.map((cert, index) => (
             <motion.div
               key={cert._id}
-              ref={containerRef}
-              onClick={() => setActiveCard(cert._id)}
+              onClick={() =>
+                setActiveCard(activeCard === cert._id ? null : cert._id)
+              }
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
@@ -86,11 +91,11 @@ export default function CertificationPage() {
               {/* FRONT */}
               <div
                 className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-500
-    ${
-      activeCard === cert._id
-        ? '-translate-y-full opacity-0'
-        : 'translate-y-0 opacity-100'
-    }`}
+                ${
+                  activeCard === cert._id
+                    ? '-translate-y-full opacity-0'
+                    : 'translate-y-0 opacity-100'
+                }`}
               >
                 <div className="w-14 h-14 rounded-full bg-purple-500/20 flex items-center justify-center mb-4">
                   <img
@@ -108,18 +113,18 @@ export default function CertificationPage() {
               {/* BACK */}
               <div
                 className={`absolute inset-0 flex flex-col justify-center items-center text-center px-4 transition-all duration-500 bg-gradient-to-br from-zinc-900 to-black
-    ${
-      activeCard === cert._id
-        ? 'translate-y-0 opacity-100'
-        : 'translate-y-full opacity-0'
-    }`}
+                ${
+                  activeCard === cert._id
+                    ? 'translate-y-0 opacity-100'
+                    : 'translate-y-full opacity-0'
+                }`}
               >
                 <p className="text-gray-300 text-sm">{cert.organization}</p>
                 <p className="text-gray-500 text-xs mt-1">{cert.date}</p>
 
                 <button
                   onClick={(e) => {
-                    e.stopPropagation(); // IMPORTANT
+                    e.stopPropagation();
                     setSelectedCert(cert);
                   }}
                   className="mt-6 px-4 py-2 text-sm border border-purple-500 text-purple-400 rounded-lg hover:bg-purple-500 hover:text-white transition"
@@ -156,7 +161,6 @@ export default function CertificationPage() {
               onClick={(e) => e.stopPropagation()}
               className="w-[90%] h-[85%] bg-zinc-950 border border-zinc-800 rounded-xl p-4 relative"
             >
-              {/* CLOSE */}
               <button
                 onClick={() => setSelectedCert(null)}
                 className="absolute top-3 right-3 text-white border border-white/20 p-2 rounded-lg hover:bg-red-500 transition"
@@ -164,12 +168,10 @@ export default function CertificationPage() {
                 <FiX />
               </button>
 
-              {/* TITLE */}
               <h2 className="text-lg font-semibold mb-3 text-center">
                 {selectedCert.title}
               </h2>
 
-              {/* PDF / LINK */}
               {selectedCert.certificateLink ? (
                 <iframe
                   src={selectedCert.certificateLink}
@@ -184,13 +186,6 @@ export default function CertificationPage() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* INLINE CSS FOR CARD EFFECT */}
-      <style jsx>{`
-        .cert-card:hover {
-          transform: translateY(-5px);
-        }
-      `}</style>
     </div>
   );
 }
