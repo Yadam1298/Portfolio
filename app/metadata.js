@@ -1,7 +1,7 @@
 // app/metadata.js
 
 export const metadata = {
-  metadataBase: new URL('http://localhost:3000'), // 🔥 REQUIRED (change after deployment)
+  metadataBase: new URL('https://yadam.vercel.app/'), // 🔥 REQUIRED (change after deployment)
 
   title: {
     default: 'Yadam Naga Venkata Naveen Kumar',
@@ -20,6 +20,10 @@ export const metadata = {
     'Web Development',
     'Naveen Kumar',
     'Yadam Naveen Kumar',
+    'Yadam Naga Venkata Naveen Kumar',
+    'Naveen Kumar Portfolio',
+    'Yadam Naga Venkata Naveen Kumar Portfolio',
+    'Yadam Naveen Portfolio',
   ],
 
   authors: [{ name: 'Yadam Naga Venkata Naveen Kumar' }],
