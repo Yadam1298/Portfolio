@@ -25,8 +25,10 @@ export default function RootLayout({ children }) {
               name: 'Yadam Naga Venkata Naveen Kumar',
               url: 'https://yadam.vercel.app',
               jobTitle: 'Full Stack Developer',
-              image:
+              image:[
                 'https://i.ibb.co/DPNnnbTF/Gemini-Generated-Image-8w62sz8w62sz8w62.png',
+                'https://cdn.phototourl.com/free/2026-07-18-171ea8ba-5e0d-4ae9-9f57-e9dfb3d2462e.png'
+              ],
               email: 'mailto:y.n.v.n.kumar@email.com',
               sameAs: [
                 'https://github.com/yadam1298',
