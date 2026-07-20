@@ -1,27 +1,27 @@
 export default function sitemap() {
   return [
     {
-      url: 'https://yadam.vercel.app',
+      url: 'https://www.ynvnk.in/',
       lastModified: new Date(),
     },
     {
-      url: 'https://yadam.vercel.app/about',
+      url: 'https://www.ynvnk.in/about',
       lastModified: new Date(),
     },
     {
-      url: 'https://yadam.vercel.app/testimonials',
+      url: 'https://www.ynvnk.in/testimonials',
       lastModified: new Date(),
     },
     {
-      url: 'https://yadam.vercel.app/projects',
+      url: 'https://www.ynvnk.in/projects',
       lastModified: new Date(),
     },
     {
-      url: 'https://yadam.vercel.app/certifications',
+      url: 'https://www.ynvnk.in/certifications',
       lastModified: new Date(),
     },
     {
-      url: 'https://yadam.vercel.app/contact',
+      url: 'https://www.ynvnk.in/contact',
       lastModified: new Date(),
     },
   ];
