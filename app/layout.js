@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
               '@context': 'https://schema.org',
               '@type': 'Person',
               name: 'Yadam Naga Venkata Naveen Kumar',
-              url: 'https://yadam.vercel.app',
+              url: 'https://www.ynvnk.in/',
               jobTitle: 'Full Stack Developer',
               image:[
                 'https://i.ibb.co/DPNnnbTF/Gemini-Generated-Image-8w62sz8w62sz8w62.png',
